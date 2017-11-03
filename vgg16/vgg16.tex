@@ -32,8 +32,6 @@
 
 \pgfmathsetmacro{\xx}{0.5}
 
-% \node[inner sep=0pt,cm={0.35 ,0.5 ,0 ,1  ,(0 cm,0 cm)}] (image) at (-1,0)
-%     {\includegraphics[width=\cubey cm]{../image/003348_2}};
 \node[inner sep=0pt,cm={0.37 ,0.5 ,0 ,1  ,(0 cm,0 cm)}] (image) at (-1.6,0)
     {\includegraphics[width=4 cm]{images/cat}};
   
@@ -52,9 +50,6 @@
 
 \node[text width=3cm] at (\x+\xx/2-\xx+0.7,\cubey/2+0.12,\cubez/2-\cubez) {\scriptsize $224 \! \times \! 224 \! \times \! 64$};
 
-%\draw[red] (\x+\xx/2,\cubey/2,\cubez/2) circle[radius=2pt];
-%\draw[blue] (\x+\xx/2-\cubex-\xx,\cubey/2,\cubez/2) circle[radius=2pt];
-%\draw[green] (\x+\xx/2-\xx,\cubey/2,\cubez/2-\cubez) circle[radius=2pt];
 
 % pool1
 \pgfmathsetmacro{\cubey}{\cubey/\divyz}
@@ -217,8 +212,6 @@
 \draw[softmaxline,fill=softmaxfill] (\x+\xx/2,\cubey/2,\cubez/2) -- ++(-\cubex,0,0) -- ++(0-\xx,0,-\cubez) -- ++(\cubex,0,0) -- cycle;
 
 \node[text width=3cm] at (\x+\xx/2-\xx+0.5,\cubey/2+0.12,\cubez/2-\cubez) {\scriptsize $1 \! \times \! 1 \! \times \! 1000$};
-
-% \draw[-stealth] (0,0,0)--(1,0,0);
 
 \pgfmathsetmacro{\x}{\x/2}
 \pgfmathsetmacro{\y}{-1.2}
