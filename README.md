@@ -24,6 +24,18 @@
 }
 ```
 
+### WILDCAT
+![wildcat](wildcat/wildcat.png "WILDCAT")
+
+```
+@inproceedings{Durand2017,
+  author = {Durand, Thibaut and Mordan, Taylor and Thome, Nicolas and Cord, Matthieu},
+  title = {{WILDCAT: Weakly Supervised Learning of Deep ConvNets for Image Classification, Pointwise Localization and Segmentation}},
+  booktitle = {IEEE Conference on Computer Vision and Pattern Recognition (CVPR)},
+  year = {2017}
+}
+```
+
 ### VGG-M
 ![vgg-m](vgg-m/vgg-m.png "VGG-M")
 
