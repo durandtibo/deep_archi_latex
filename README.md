@@ -12,6 +12,18 @@
 }
 ```
 
+### WELDON
+![weldon](weldon/weldon.png "WELDON")
+
+```
+@inproceedings{Durand2016,
+  author = {Durand, Thibaut and Thome, Nicolas and Cord, Matthieu},
+  title = {{WELDON: Weakly Supervised Learning of Deep Convolutional Neural Networks}},
+  booktitle = {IEEE Conference on Computer Vision and Pattern Recognition (CVPR)},
+  year = {2016}
+}
+```
+
 ### VGG-M
 ![vgg-m](vgg-m/vgg-m.png "VGG-M")
 
