@@ -1,0 +1,258 @@
+% Commutative diagram with edges passing under/over
+% Jan 7, 2009, Stefan Kottwitz
+% http://texblog.net
+\documentclass[landscape]{article}
+\usepackage{tikz}
+\usepackage[paperwidth=12.5cm,paperheight=7.5cm,hmargin=0.4cm,vmargin=0.5cm]{geometry}
+\usetikzlibrary{matrix}
+\begin{document}
+\begin{tikzpicture}
+
+\pgfmathsetmacro{\cubex}{0.1}
+\pgfmathsetmacro{\cubey}{4}
+\pgfmathsetmacro{\cubez}{5}
+
+\pgfmathsetmacro{\multx}{1.5}
+\pgfmathsetmacro{\divyz}{2}
+
+\definecolor{convfill}{RGB}{255,255,255}
+\definecolor{convline}{RGB}{0,0,0}
+
+\definecolor{maxline}{RGB}{255,0,0}
+\definecolor{maxfill}{RGB}{255,255,255}
+
+\definecolor{fcfill}{RGB}{255,255,255}
+\definecolor{fcline}{RGB}{6,185,251}
+
+\definecolor{softmaxfill}{RGB}{255,255,255}
+\definecolor{softmaxline}{RGB}{191,115,16}
+
+\pgfmathsetmacro{\x}{0}
+\pgfmathsetmacro{\offset}{0.08}
+
+\pgfmathsetmacro{\xx}{0.5}
+
+% \node[inner sep=0pt,cm={0.35 ,0.5 ,0 ,1  ,(0 cm,0 cm)}] (image) at (-1,0)
+%     {\includegraphics[width=\cubey cm]{../image/003348_2}};
+\node[inner sep=0pt,cm={0.37 ,0.5 ,0 ,1  ,(0 cm,0 cm)}] (image) at (-1.6,0)
+    {\includegraphics[width=4 cm]{images/cat}};
+  
+\node[text width=3cm] at (\x+\xx/2-\xx-1.2,\cubey/2+0.12,\cubez/2-\cubez) {\scriptsize $224 \! \times \! 224 \! \times \! 3$};
+
+%% conv1-1
+\draw[convline,fill=convfill] (\x+\xx/2,\cubey/2,\cubez/2) -- ++(-\cubex,0,0) -- ++(0,-\cubey,0) -- ++(\cubex,0,0) -- cycle;
+\draw[convline,fill=convfill] (\x+\xx/2,\cubey/2,\cubez/2) -- ++(0-\xx,0,-\cubez) -- ++(0,-\cubey,0) -- ++(0+\xx,0,\cubez) -- cycle;
+\draw[convline,fill=convfill] (\x+\xx/2,\cubey/2,\cubez/2) -- ++(-\cubex,0,0) -- ++(0-\xx,0,-\cubez) -- ++(\cubex,0,0) -- cycle;
+
+% conv1-2
+\pgfmathsetmacro{\x}{\x + \cubex + \offset}
+\draw[convline,fill=convfill] (\x+\xx/2,\cubey/2,\cubez/2) -- ++(-\cubex,0,0) -- ++(0,-\cubey,0) -- ++(\cubex,0,0) -- cycle;
+\draw[convline,fill=convfill] (\x+\xx/2,\cubey/2,\cubez/2) -- ++(0-\xx,0,-\cubez) -- ++(0,-\cubey,0) -- ++(0+\xx,0,\cubez) -- cycle;
+\draw[convline,fill=convfill] (\x+\xx/2,\cubey/2,\cubez/2) -- ++(-\cubex,0,0) -- ++(0-\xx,0,-\cubez) -- ++(\cubex,0,0) -- cycle;
+
+\node[text width=3cm] at (\x+\xx/2-\xx+0.7,\cubey/2+0.12,\cubez/2-\cubez) {\scriptsize $224 \! \times \! 224 \! \times \! 64$};
+
+%\draw[red] (\x+\xx/2,\cubey/2,\cubez/2) circle[radius=2pt];
+%\draw[blue] (\x+\xx/2-\cubex-\xx,\cubey/2,\cubez/2) circle[radius=2pt];
+%\draw[green] (\x+\xx/2-\xx,\cubey/2,\cubez/2-\cubez) circle[radius=2pt];
+
+% pool1
+\pgfmathsetmacro{\cubey}{\cubey/\divyz}
+\pgfmathsetmacro{\cubez}{\cubez/\divyz}
+\pgfmathsetmacro{\x}{\x + \cubex + \offset}
+\pgfmathsetmacro{\xx}{\xx/\divyz}
+\draw[maxline,fill=maxfill] (\x+\xx/2,\cubey/2,\cubez/2) -- ++(-\cubex,0,0) -- ++(0,-\cubey,0) -- ++(\cubex,0,0) -- cycle;
+\draw[maxline,fill=maxfill] (\x+\xx/2,\cubey/2,\cubez/2) -- ++(0-\xx,0,-\cubez) -- ++(0,-\cubey,0) -- ++(0+\xx,0,\cubez) -- cycle;
+\draw[maxline,fill=maxfill] (\x+\xx/2,\cubey/2,\cubez/2) -- ++(-\cubex,0,0) -- ++(0-\xx,0,-\cubez) -- ++(\cubex,0,0) -- cycle;
+
+% conv2-1
+\pgfmathsetmacro{\cubex}{\cubex*\multx}
+\pgfmathsetmacro{\x}{\x + \cubex + \offset}
+\draw[convline,fill=convfill] (\x+\xx/2,\cubey/2,\cubez/2) -- ++(-\cubex,0,0) -- ++(0,-\cubey,0) -- ++(\cubex,0,0) -- cycle;
+\draw[convline,fill=convfill] (\x+\xx/2,\cubey/2,\cubez/2) -- ++(0-\xx,0,-\cubez) -- ++(0,-\cubey,0) -- ++(0+\xx,0,\cubez) -- cycle;
+\draw[convline,fill=convfill] (\x+\xx/2,\cubey/2,\cubez/2) -- ++(-\cubex,0,0) -- ++(0-\xx,0,-\cubez) -- ++(\cubex,0,0) -- cycle;
+
+% conv2-2
+\pgfmathsetmacro{\x}{\x + \cubex + \offset}
+\draw[convline,fill=convfill] (\x+\xx/2,\cubey/2,\cubez/2) -- ++(-\cubex,0,0) -- ++(0,-\cubey,0) -- ++(\cubex,0,0) -- cycle;
+\draw[convline,fill=convfill] (\x+\xx/2,\cubey/2,\cubez/2) -- ++(0-\xx,0,-\cubez) -- ++(0,-\cubey,0) -- ++(0+\xx,0,\cubez) -- cycle;
+\draw[convline,fill=convfill] (\x+\xx/2,\cubey/2,\cubez/2) -- ++(-\cubex,0,0) -- ++(0-\xx,0,-\cubez) -- ++(\cubex,0,0) -- cycle;
+
+\node[text width=3cm] at (\x+\xx/2-\xx+0.55,\cubey/2+0.12,\cubez/2-\cubez) {\scriptsize $112 \! \times \! 112 \! \times \! 128$};
+
+% pool2
+\pgfmathsetmacro{\cubey}{\cubey/\divyz}
+\pgfmathsetmacro{\cubez}{\cubez/\divyz}
+\pgfmathsetmacro{\x}{\x + \cubex + \offset}
+\pgfmathsetmacro{\xx}{\xx/\divyz}
+\draw[maxline,fill=maxfill] (\x+\xx/2,\cubey/2,\cubez/2) -- ++(-\cubex,0,0) -- ++(0,-\cubey,0) -- ++(\cubex,0,0) -- cycle;
+\draw[maxline,fill=maxfill] (\x+\xx/2,\cubey/2,\cubez/2) -- ++(0-\xx,0,-\cubez) -- ++(0,-\cubey,0) -- ++(0+\xx,0,\cubez) -- cycle;
+\draw[maxline,fill=maxfill] (\x+\xx/2,\cubey/2,\cubez/2) -- ++(-\cubex,0,0) -- ++(0-\xx,0,-\cubez) -- ++(\cubex,0,0) -- cycle;
+
+
+% conv3-1
+\pgfmathsetmacro{\cubex}{\cubex*\multx}
+\pgfmathsetmacro{\x}{\x + \cubex + \offset}
+\draw[convline,fill=convfill] (\x+\xx/2,\cubey/2,\cubez/2) -- ++(-\cubex,0,0) -- ++(0,-\cubey,0) -- ++(\cubex,0,0) -- cycle;
+\draw[convline,fill=convfill] (\x+\xx/2,\cubey/2,\cubez/2) -- ++(0-\xx,0,-\cubez) -- ++(0,-\cubey,0) -- ++(0+\xx,0,\cubez) -- cycle;
+\draw[convline,fill=convfill] (\x+\xx/2,\cubey/2,\cubez/2) -- ++(-\cubex,0,0) -- ++(0-\xx,0,-\cubez) -- ++(\cubex,0,0) -- cycle;
+
+% conv3-2
+\pgfmathsetmacro{\x}{\x + \cubex + \offset}
+\draw[convline,fill=convfill] (\x+\xx/2,\cubey/2,\cubez/2) -- ++(-\cubex,0,0) -- ++(0,-\cubey,0) -- ++(\cubex,0,0) -- cycle;
+\draw[convline,fill=convfill] (\x+\xx/2,\cubey/2,\cubez/2) -- ++(0-\xx,0,-\cubez) -- ++(0,-\cubey,0) -- ++(0+\xx,0,\cubez) -- cycle;
+\draw[convline,fill=convfill] (\x+\xx/2,\cubey/2,\cubez/2) -- ++(-\cubex,0,0) -- ++(0-\xx,0,-\cubez) -- ++(\cubex,0,0) -- cycle;
+
+% conv3-3
+\pgfmathsetmacro{\x}{\x + \cubex + \offset}
+\draw[convline,fill=convfill] (\x+\xx/2,\cubey/2,\cubez/2) -- ++(-\cubex,0,0) -- ++(0,-\cubey,0) -- ++(\cubex,0,0) -- cycle;
+\draw[convline,fill=convfill] (\x+\xx/2,\cubey/2,\cubez/2) -- ++(0-\xx,0,-\cubez) -- ++(0,-\cubey,0) -- ++(0+\xx,0,\cubez) -- cycle;
+\draw[convline,fill=convfill] (\x+\xx/2,\cubey/2,\cubez/2) -- ++(-\cubex,0,0) -- ++(0-\xx,0,-\cubez) -- ++(\cubex,0,0) -- cycle;
+
+\node[text width=3cm] at (\x+\xx/2-\xx+0.23,\cubey/2+0.12,\cubez/2-\cubez) {\scriptsize $56 \! \times \! 56 \! \times \! 256$};
+
+% pool3
+\pgfmathsetmacro{\cubey}{\cubey/2}
+\pgfmathsetmacro{\cubez}{\cubez/2}
+\pgfmathsetmacro{\x}{\x + \cubex + \offset}
+\pgfmathsetmacro{\xx}{\xx/\divyz}
+\draw[maxline,fill=maxfill] (\x+\xx/2,\cubey/2,\cubez/2) -- ++(-\cubex,0,0) -- ++(0,-\cubey,0) -- ++(\cubex,0,0) -- cycle;
+\draw[maxline,fill=maxfill] (\x+\xx/2,\cubey/2,\cubez/2) -- ++(0-\xx,0,-\cubez) -- ++(0,-\cubey,0) -- ++(0+\xx,0,\cubez) -- cycle;
+\draw[maxline,fill=maxfill] (\x+\xx/2,\cubey/2,\cubez/2) -- ++(-\cubex,0,0) -- ++(0-\xx,0,-\cubez) -- ++(\cubex,0,0) -- cycle;
+
+
+% conv4-1
+\pgfmathsetmacro{\cubex}{\cubex*\multx}
+\pgfmathsetmacro{\x}{\x + \cubex + \offset}
+\draw[convline,fill=convfill] (\x+\xx/2,\cubey/2,\cubez/2) -- ++(-\cubex,0,0) -- ++(0,-\cubey,0) -- ++(\cubex,0,0) -- cycle;
+\draw[convline,fill=convfill] (\x+\xx/2,\cubey/2,\cubez/2) -- ++(0-\xx,0,-\cubez) -- ++(0,-\cubey,0) -- ++(0+\xx,0,\cubez) -- cycle;
+\draw[convline,fill=convfill] (\x+\xx/2,\cubey/2,\cubez/2) -- ++(-\cubex,0,0) -- ++(0-\xx,0,-\cubez) -- ++(\cubex,0,0) -- cycle;
+
+% conv4-2
+\pgfmathsetmacro{\x}{\x + \cubex + \offset}
+\draw[convline,fill=convfill] (\x+\xx/2,\cubey/2,\cubez/2) -- ++(-\cubex,0,0) -- ++(0,-\cubey,0) -- ++(\cubex,0,0) -- cycle;
+\draw[convline,fill=convfill] (\x+\xx/2,\cubey/2,\cubez/2) -- ++(0-\xx,0,-\cubez) -- ++(0,-\cubey,0) -- ++(0+\xx,0,\cubez) -- cycle;
+\draw[convline,fill=convfill] (\x+\xx/2,\cubey/2,\cubez/2) -- ++(-\cubex,0,0) -- ++(0-\xx,0,-\cubez) -- ++(\cubex,0,0) -- cycle;
+
+% conv4-3
+\pgfmathsetmacro{\x}{\x + \cubex + \offset}
+\draw[convline,fill=convfill] (\x+\xx/2,\cubey/2,\cubez/2) -- ++(-\cubex,0,0) -- ++(0,-\cubey,0) -- ++(\cubex,0,0) -- cycle;
+\draw[convline,fill=convfill] (\x+\xx/2,\cubey/2,\cubez/2) -- ++(0-\xx,0,-\cubez) -- ++(0,-\cubey,0) -- ++(0+\xx,0,\cubez) -- cycle;
+\draw[convline,fill=convfill] (\x+\xx/2,\cubey/2,\cubez/2) -- ++(-\cubex,0,0) -- ++(0-\xx,0,-\cubez) -- ++(\cubex,0,0) -- cycle;
+
+\node[text width=3cm] at (\x+\xx/2-\xx+0.05,\cubey/2+0.12,\cubez/2-\cubez) {\scriptsize $28 \! \times \! 28 \! \times \! 512$};
+
+% pool4
+\pgfmathsetmacro{\cubey}{\cubey/2}
+\pgfmathsetmacro{\cubez}{\cubez/2}
+\pgfmathsetmacro{\x}{\x + \cubex + \offset}
+\pgfmathsetmacro{\xx}{\xx/\divyz}
+\draw[maxline,fill=maxfill] (\x+\xx/2,\cubey/2,\cubez/2) -- ++(-\cubex,0,0) -- ++(0,-\cubey,0) -- ++(\cubex,0,0) -- cycle;
+\draw[maxline,fill=maxfill] (\x+\xx/2,\cubey/2,\cubez/2) -- ++(0-\xx,0,-\cubez) -- ++(0,-\cubey,0) -- ++(0+\xx,0,\cubez) -- cycle;
+\draw[maxline,fill=maxfill] (\x+\xx/2,\cubey/2,\cubez/2) -- ++(-\cubex,0,0) -- ++(0-\xx,0,-\cubez) -- ++(\cubex,0,0) -- cycle;
+
+
+% conv5-1
+\pgfmathsetmacro{\x}{\x + \cubex + \offset}
+\draw[convline,fill=convfill] (\x+\xx/2,\cubey/2,\cubez/2) -- ++(-\cubex,0,0) -- ++(0,-\cubey,0) -- ++(\cubex,0,0) -- cycle;
+\draw[convline,fill=convfill] (\x+\xx/2,\cubey/2,\cubez/2) -- ++(0-\xx,0,-\cubez) -- ++(0,-\cubey,0) -- ++(0+\xx,0,\cubez) -- cycle;
+\draw[convline,fill=convfill] (\x+\xx/2,\cubey/2,\cubez/2) -- ++(-\cubex,0,0) -- ++(0-\xx,0,-\cubez) -- ++(\cubex,0,0) -- cycle;
+
+% conv5-2
+\pgfmathsetmacro{\x}{\x + \cubex + \offset}
+\draw[convline,fill=convfill] (\x+\xx/2,\cubey/2,\cubez/2) -- ++(-\cubex,0,0) -- ++(0,-\cubey,0) -- ++(\cubex,0,0) -- cycle;
+\draw[convline,fill=convfill] (\x+\xx/2,\cubey/2,\cubez/2) -- ++(0-\xx,0,-\cubez) -- ++(0,-\cubey,0) -- ++(0+\xx,0,\cubez) -- cycle;
+\draw[convline,fill=convfill] (\x+\xx/2,\cubey/2,\cubez/2) -- ++(-\cubex,0,0) -- ++(0-\xx,0,-\cubez) -- ++(\cubex,0,0) -- cycle;
+
+% conv5-3
+\pgfmathsetmacro{\x}{\x + \cubex + \offset}
+\draw[convline,fill=convfill] (\x+\xx/2,\cubey/2,\cubez/2) -- ++(-\cubex,0,0) -- ++(0,-\cubey,0) -- ++(\cubex,0,0) -- cycle;
+\draw[convline,fill=convfill] (\x+\xx/2,\cubey/2,\cubez/2) -- ++(0-\xx,0,-\cubez) -- ++(0,-\cubey,0) -- ++(0+\xx,0,\cubez) -- cycle;
+\draw[convline,fill=convfill] (\x+\xx/2,\cubey/2,\cubez/2) -- ++(-\cubex,0,0) -- ++(0-\xx,0,-\cubez) -- ++(\cubex,0,0) -- cycle;
+
+\node[text width=3cm] at (\x+\xx/2-\xx-0.05,\cubey/2+0.12,\cubez/2-\cubez) {\scriptsize $14 \! \times \! 14 \! \times \! 512$};
+
+% pool5
+\pgfmathsetmacro{\cubey}{\cubey/2}
+\pgfmathsetmacro{\cubez}{\cubez/2}
+\pgfmathsetmacro{\x}{\x + \cubex + \offset}
+\pgfmathsetmacro{\xx}{\xx/\divyz}
+\draw[maxline,fill=maxfill] (\x+\xx/2,\cubey/2,\cubez/2) -- ++(-\cubex,0,0) -- ++(0,-\cubey,0) -- ++(\cubex,0,0) -- cycle;
+\draw[maxline,fill=maxfill] (\x+\xx/2,\cubey/2,\cubez/2) -- ++(0-\xx,0,-\cubez) -- ++(0,-\cubey,0) -- ++(0+\xx,0,\cubez) -- cycle;
+\draw[maxline,fill=maxfill] (\x+\xx/2,\cubey/2,\cubez/2) -- ++(-\cubex,0,0) -- ++(0-\xx,0,-\cubez) -- ++(\cubex,0,0) -- cycle;
+
+\node[text width=3cm] (sizepool5) at (\x+\xx/2-\xx+0.8,\cubey/2+0.5,0) {\scriptsize $7 \! \times \! 7 \! \times \! 512$};
+
+\draw[-stealth] (\x+\xx/2-\xx -\cubex/2,\cubey/2+0.4,0)--(\x+\xx/2-\xx -\cubex/2,\cubey/2 ,0);
+
+% fc6
+\pgfmathsetmacro{\cubex}{\cubex*2.5}
+\pgfmathsetmacro{\cubey}{\cubey/2}
+\pgfmathsetmacro{\cubez}{\cubez/2}
+\pgfmathsetmacro{\x}{\x + \cubex + \offset}
+\pgfmathsetmacro{\xx}{\xx/\divyz}
+\draw[fcline,fill=fcfill] (\x+\xx/2,\cubey/2,\cubez/2) -- ++(-\cubex,0,0) -- ++(0,-\cubey,0) -- ++(\cubex,0,0) -- cycle;
+\draw[fcline,fill=fcfill] (\x+\xx/2,\cubey/2,\cubez/2) -- ++(0-\xx,0,-\cubez) -- ++(0,-\cubey,0) -- ++(0+\xx,0,\cubez) -- cycle;
+\draw[fcline,fill=fcfill] (\x+\xx/2,\cubey/2,\cubez/2) -- ++(-\cubex,0,0) -- ++(0-\xx,0,-\cubez) -- ++(\cubex,0,0) -- cycle;
+
+% fc7
+\pgfmathsetmacro{\x}{\x + \cubex + \offset}
+\draw[fcline,fill=fcfill] (\x+\xx/2,\cubey/2,\cubez/2) -- ++(-\cubex,0,0) -- ++(0,-\cubey,0) -- ++(\cubex,0,0) -- cycle;
+\draw[fcline,fill=fcfill] (\x+\xx/2,\cubey/2,\cubez/2) -- ++(0-\xx,0,-\cubez) -- ++(0,-\cubey,0) -- ++(0+\xx,0,\cubez) -- cycle;
+\draw[fcline,fill=fcfill] (\x+\xx/2,\cubey/2,\cubez/2) -- ++(-\cubex,0,0) -- ++(0-\xx,0,-\cubez) -- ++(\cubex,0,0) -- cycle;
+
+\node[text width=3cm] at (\x+\xx/2-\xx-0.1,\cubey/2+0.12,\cubez/2-\cubez) {\scriptsize $1 \! \times \! 1 \! \times \! 4096$};
+
+% fc8
+\pgfmathsetmacro{\cubex}{\cubex/2}
+\pgfmathsetmacro{\x}{\x + \cubex + \offset}
+\draw[fcline,fill=fcfill] (\x+\xx/2,\cubey/2,\cubez/2) -- ++(-\cubex,0,0) -- ++(0,-\cubey,0) -- ++(\cubex,0,0) -- cycle;
+\draw[fcline,fill=fcfill] (\x+\xx/2,\cubey/2,\cubez/2) -- ++(0-\xx,0,-\cubez) -- ++(0,-\cubey,0) -- ++(0+\xx,0,\cubez) -- cycle;
+\draw[fcline,fill=fcfill] (\x+\xx/2,\cubey/2,\cubez/2) -- ++(-\cubex,0,0) -- ++(0-\xx,0,-\cubez) -- ++(\cubex,0,0) -- cycle;
+
+% softmax
+\pgfmathsetmacro{\x}{\x + \cubex + \offset}
+\draw[softmaxline,fill=softmaxfill] (\x+\xx/2,\cubey/2,\cubez/2) -- ++(-\cubex,0,0) -- ++(0,-\cubey,0) -- ++(\cubex,0,0) -- cycle;
+\draw[softmaxline,fill=softmaxfill] (\x+\xx/2,\cubey/2,\cubez/2) -- ++(0-\xx,0,-\cubez) -- ++(0,-\cubey,0) -- ++(0+\xx,0,\cubez) -- cycle;
+\draw[softmaxline,fill=softmaxfill] (\x+\xx/2,\cubey/2,\cubez/2) -- ++(-\cubex,0,0) -- ++(0-\xx,0,-\cubez) -- ++(\cubex,0,0) -- cycle;
+
+\node[text width=3cm] at (\x+\xx/2-\xx+0.5,\cubey/2+0.12,\cubez/2-\cubez) {\scriptsize $1 \! \times \! 1 \! \times \! 1000$};
+
+% \draw[-stealth] (0,0,0)--(1,0,0);
+
+\pgfmathsetmacro{\x}{\x/2}
+\pgfmathsetmacro{\y}{-1.2}
+\pgfmathsetmacro{\cubex}{\cubex/1.5}
+\pgfmathsetmacro{\cubey}{\cubey*3}
+\pgfmathsetmacro{\cubez}{\cubez*3}
+
+\draw[convline,fill=convfill] (\x+\xx/2,\y+\cubey/2,\cubez/2) -- ++(-\cubex,0,0) -- ++(0,-\cubey,0) -- ++(\cubex,0,0) -- cycle;
+\draw[convline,fill=convfill] (\x+\xx/2,\y+\cubey/2,\cubez/2) -- ++(0-\xx,0,-\cubez) -- ++(0,-\cubey,0) -- ++(0+\xx,0,\cubez) -- cycle;
+\draw[convline,fill=convfill] (\x+\xx/2,\y+\cubey/2,\cubez/2) -- ++(-\cubex,0,0) -- ++(0-\xx,0,-\cubez) -- ++(\cubex,0,0) -- cycle;
+
+\node[text width=3cm] at (\x+1.7,\y+0.05,0) {\scriptsize convolution+ReLU};
+
+\pgfmathsetmacro{\y}{\y-0.35}
+\draw[maxline,fill=maxfill] (\x+\xx/2,\y+\cubey/2,\cubez/2) -- ++(-\cubex,0,0) -- ++(0,-\cubey,0) -- ++(\cubex,0,0) -- cycle;
+\draw[maxline,fill=maxfill] (\x+\xx/2,\y+\cubey/2,\cubez/2) -- ++(0-\xx,0,-\cubez) -- ++(0,-\cubey,0) -- ++(0+\xx,0,\cubez) -- cycle;
+\draw[maxline,fill=maxfill] (\x+\xx/2,\y+\cubey/2,\cubez/2) -- ++(-\cubex,0,0) -- ++(0-\xx,0,-\cubez) -- ++(\cubex,0,0) -- cycle;
+
+\node[text width=3cm] at (\x+1.7,\y+0.05,0) {\scriptsize max pooling};
+
+\pgfmathsetmacro{\y}{\y-0.35}
+\draw[fcline,fill=fcfill] (\x+\xx/2,\y+\cubey/2,\cubez/2) -- ++(-\cubex,0,0) -- ++(0,-\cubey,0) -- ++(\cubex,0,0) -- cycle;
+\draw[fcline,fill=fcfill] (\x+\xx/2,\y+\cubey/2,\cubez/2) -- ++(0-\xx,0,-\cubez) -- ++(0,-\cubey,0) -- ++(0+\xx,0,\cubez) -- cycle;
+\draw[fcline,fill=fcfill] (\x+\xx/2,\y+\cubey/2,\cubez/2) -- ++(-\cubex,0,0) -- ++(0-\xx,0,-\cubez) -- ++(\cubex,0,0) -- cycle;
+
+\node[text width=3cm] at (\x+1.7,\y+0.05,0) {\scriptsize fully connected+ReLU};
+
+\pgfmathsetmacro{\y}{\y-0.35}
+\draw[softmaxline,fill=softmaxfill] (\x+\xx/2,\y+\cubey/2,\cubez/2) -- ++(-\cubex,0,0) -- ++(0,-\cubey,0) -- ++(\cubex,0,0) -- cycle;
+\draw[softmaxline,fill=softmaxfill] (\x+\xx/2,\y+\cubey/2,\cubez/2) -- ++(0-\xx,0,-\cubez) -- ++(0,-\cubey,0) -- ++(0+\xx,0,\cubez) -- cycle;
+\draw[softmaxline,fill=softmaxfill] (\x+\xx/2,\y+\cubey/2,\cubez/2) -- ++(-\cubex,0,0) -- ++(0-\xx,0,-\cubez) -- ++(\cubex,0,0) -- cycle;
+
+\node[text width=3cm] at (\x+1.7,\y+0.05,0) {\scriptsize softmax};
+
+\end{tikzpicture}
+
+\end{document}
